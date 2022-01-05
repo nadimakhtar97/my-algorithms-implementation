@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-// Dijkstra is like BFS
-// In BFS we use queue datastructure and in Dijkstra we use priority_queue;
 class Graph
 {
 
@@ -28,17 +25,16 @@ public:
     {
 
         vector<int> dist(v, INT_MAX);
-        set<pair<int, int>> s;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> q;
         dist[src] = 0;
-        s.insert({0, src}); // {distance,node}
+        q.push({0, src}); // {distance,node}
 
-        while (!s.empty())
+        while (!q.empty())
         {
 
-            auto it = s.begin();
-            int distTillNow = it->first;
-            int node = it->second;
-            s.erase(it);
+            int distTillNow = q.top().first;
+            int node = q.top().second;
+            q.pop();
 
             //Iterate over nbrs of node
             for (auto nbrPair : gr[node])
@@ -49,17 +45,9 @@ public:
 
                 if (distTillNow + currentEdge < dist[nbr])
                 {
-
-                    // remove pair if already exist in set
-                    auto f = s.find({dist[nbr], nbr});
-                    if (f != s.end())
-                    {
-                        s.erase(f);
-                    }
-
                     // insert the updated value with new distance
                     dist[nbr] = distTillNow + currentEdge;
-                    s.insert({dist[nbr], nbr});
+                    q.push({dist[nbr], nbr});
                 }
             }
         }
