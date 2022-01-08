@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Topological sort using DFS is much simpler. It is just DFS with
+// an extra step of pushing element after recursion
+
 class Graph
 {
     int v;
@@ -31,7 +34,8 @@ public:
             if(!visited[nbr])
                 dfs(nbr);
         }
-
+        
+        // This is the only change in dfs to implement topo sort
         topo_order.push_back(src);
         return;
     }

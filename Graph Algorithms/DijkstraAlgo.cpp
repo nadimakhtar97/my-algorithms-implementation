@@ -1,6 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// dijkstra's algo is like bfs in a weighted undirected graph
+// in bfs we use queue and in dijkstra's we use *priority_queue*
+// we also find shortest path using bfs if the given graph
+// is undirected unweighted graph.
+
+// there are two implementation for dijkstra one using set other
+// using priority queue. priority_queue is more intiuitive as
+// it matches with bfs
+
+
 class Graph
 {
 

@@ -1,52 +1,60 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-class DSU{
+// kruskal's algo is very simple the major part in 
+// kruskal's algo is the implementation of DSU
 
-    int* parent;
-    int* rank;
+class DSU{
+    
 
     public:
-
-    DSU(int size){
-
-        parent = new int[size];
-        rank = new int[size];
-
-        for(int i=0;i<size;i++){
-            parent[i] = -1;
-            rank[i] = 1;
-        }
+    
+    int disjointSetCount;
+    vector<int> parent;
+    vector<int> rank;
+    
+    
+    DSU(int disjointSetCount){
+        this->disjointSetCount = disjointSetCount;
+        parent.resize(disjointSetCount,-1);
+        rank.resize(disjointSetCount,1);
     }
-
-    // find function
-    int find(int i){
-
-        // base case
-        if(parent[i] == -1)
-            return i;
-
-        return parent[i] = find(parent[i]);
+    
+    int find(int x){
+        
+        if(parent[x] == -1)
+            return x;
+        
+        return parent[x] = find(parent[x]);
     }
-
-    //union function
-    void union_set(int x,int y){
+    
+    bool union_set(int x,int y){
+        
         int s1 = find(x);
         int s2 = find(y);
-
-        if(s1 != s2){
-            if(rank[s1] > rank[s2]){
+        
+        if( s1 != s2){
+                
+            if(rank[s1]>rank[s2]){
                 parent[s2] = s1;
                 rank[s1] += rank[s2];
+                disjointSetCount--;
+                return true;
+                
             }
             else{
                 parent[s1] = s2;
-                rank[s2] += rank[s1];
-            }            
+                rank[s2] = rank[s1];
+                disjointSetCount--;
+                return true;
+            }
+            
         }
+        
+        return false;
     }
-
 };
+
 
 class Graph{
 
