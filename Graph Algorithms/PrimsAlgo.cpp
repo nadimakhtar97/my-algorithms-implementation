@@ -1,6 +1,18 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// Prims MST for weighted undirected graph (greedy algorithm).
+// Terms
+// MST set = []
+// Active Edge = an edge from a vertex in set MST to an edge in set visited
+// MST Edge = an edge that has been included in MST so far.
+
+// Algorithm
+// 1. start from any source node
+// 2. out of all active edges, pick the one with smallest weight
+// -select Y in MST
+// add edges starting from Y in the active edge list
+
 class Graph{
 
     int v; // no. of vertex
@@ -21,6 +33,10 @@ class Graph{
         l[y].push_back({x,weight});
     }
 
+    // Difference between Prims and Dijkstra is “Don’t add current vertex distance to calculate neighbour distance”.
+    //Example : u, v
+    // Dijkstra - dis[v] = dis[u] + graph[u][v];
+    // Prims - dis[v] = graph[u][v];
     int prims_mst(){
 
         // Min Heap Init
@@ -36,7 +52,7 @@ class Graph{
 
         while(!Q.empty()){
 
-            pair<int,int> best = Q.top();
+            pair<int,int>& best = Q.top();
             Q.pop();
 
             int to = best.second;

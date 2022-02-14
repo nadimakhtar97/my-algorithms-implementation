@@ -34,6 +34,8 @@ public:
     {
 
         vector<int> dist(v, INT_MAX);
+        
+        // MIN HEAP INIT
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> q;
         dist[src] = 0;
         q.push({0, src}); // {distance,node}
